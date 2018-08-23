@@ -23,7 +23,7 @@
  * @param payload.resource The content resource
  */
 function pre(payload) {
-  payload.resource.link = '/' + payload.path.replace('.md', '.html');
+  payload.resource.link = payload.path.replace('.md', '.html');
 }
 
 module.exports.pre = pre;
