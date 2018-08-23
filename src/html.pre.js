@@ -34,8 +34,7 @@ function removeChildren(children, n) {
 function pre(payload) {
 
   //todo replace with info from request data
-  const ROOT_PATH = '/' + payload.path.substring(0, payload.path.lastIndexOf('/'));
-  console.log('ROOT_PATH', ROOT_PATH);
+  const ROOT_PATH = '/apis/experiencecloud';
   payload.resource.children = removeChildren(payload.resource.children, 5);
   payload.resource.banner = {
     img: '',
