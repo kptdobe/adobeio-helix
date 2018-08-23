@@ -33,19 +33,37 @@ function removeChildren(children, n) {
  */
 function pre(payload) {
 
-  payload.resource.children = removeChildren(payload.resource.children, 3);
+  //todo replace with info from request data
+  const ROOT_PATH = '/' + payload.path.substring(0, payload.path.lastIndexOf('/'));
+  console.log('ROOT_PATH', ROOT_PATH);
+  payload.resource.children = removeChildren(payload.resource.children, 5);
   payload.resource.banner = {
     img: '',
     alt: ''
   };
-  if (payload.resource.mdast.children.length > 1) {
-    const heading = payload.resource.mdast.children[1];
+  payload.resource.references = [];
+
+  if (payload.resource.mdast.children.length > 3) {
+    const heading = payload.resource.mdast.children[2];
     if (heading.children && heading.children.length > 0) {
         const img = heading.children[0];
         if (img.type === 'image') {
           payload.resource.banner.img = img.url;
           payload.resource.banner.text = img.alt;
         }
+    }
+    
+    const links = payload.resource.mdast.children[3];
+    if (links.children && links.children.length > 0) {
+      links.children.forEach(ref => {
+        if (ref.type === 'link') {
+          const p = ref.url.substring(1, ref.url.lastIndexOf('.'));
+          console.log('p',p);
+          payload.resource.references.push({
+            path: ROOT_PATH + p
+          });
+        }
+      });
     }
   } 
 }

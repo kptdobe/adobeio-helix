@@ -17,7 +17,7 @@ function removePosition(node) {
 // module.exports.pre is a function (taking next as an argument)
 // that returns a function (with payload, secrets, logger as arguments)
 // that calls next (after modifying the payload a bit)
-function pre(payload) {
+function pre(payload, config) {
   const p = payload;
 
   delete p.resource.body;

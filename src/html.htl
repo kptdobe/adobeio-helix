@@ -311,61 +311,11 @@
                         <div class="grid-row">
                             <div class="grid-cols-16">
                                 <section>
-
                                     <h2 class="heading heading--display">Discover other products</h2>
-
-
-
                                     <div class="grid-row height-balancer">
-                                        <ul class="solutionslisting__list solutionslisting__list--small-icons">
+                                        <ul class="solutionslisting__list solutionslisting__list--small-icons" data-sly-list="${it.resource.references}">
                                             <li class="solutionslisting__item">
-                                                <a class="solutionslisting__container" href="/apis/experiencecloud/primetime.html"
-                                                    target="_self">
-                                                    <div class="solutionslisting__logo">
-                                                        <span class="solutionslisting__icon adobe-icon-pr"></span>
-                                                    </div>
-                                                    <div class="solutionslisting__text">
-                                                        <h3>
-                                                            <span class="solutionslisting__title">Adobe Primetime</span>
-                                                        </h3>
-                                                        <p class="solutionslisting__copy">A multiscreen TV platform that helps broadcasters, cable networks
-                                                            and service providers create and monetize engaging and personalized
-                                                            TV and film experiences.</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-
-                                            <li class="solutionslisting__item">
-                                                <a class="solutionslisting__container" href="/apis/experiencecloud/campaign.html"
-                                                    target="_self">
-                                                    <div class="solutionslisting__logo">
-                                                        <span class="solutionslisting__icon adobe-icon-campaign"></span>
-                                                    </div>
-                                                    <div class="solutionslisting__text">
-                                                        <h3>
-                                                            <span class="solutionslisting__title">Adobe Campaign</span>
-                                                        </h3>
-                                                        <p class="solutionslisting__copy">A set of solutions that help you personalize and deliver campaigns
-                                                            across all of your online and offline channels.</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-
-                                            <li class="solutionslisting__item">
-                                                <a class="solutionslisting__container" href="/apis/experiencecloud/target.html"
-                                                    target="_self">
-                                                    <div class="solutionslisting__logo">
-                                                        <span class="solutionslisting__icon adobe-icon-target"></span>
-                                                    </div>
-                                                    <div class="solutionslisting__text">
-                                                        <h3>
-                                                            <span class="solutionslisting__title">Adobe Target</span>
-                                                        </h3>
-                                                        <p class="solutionslisting__copy">A personalization solution that makes it easy to identify your best
-                                                            content through tests that are easy to execute, enabling you
-                                                            to deliver the right experience to the right customer.</p>
-                                                    </div>
-                                                </a>
+                                                <esi:include src="${item.path}.summary.html">
                                             </li>
                                         </ul>
                                     </div>
@@ -375,7 +325,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </main>
