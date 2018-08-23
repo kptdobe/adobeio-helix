@@ -35,7 +35,7 @@ function pre(payload) {
 
   //todo replace with info from request data
   const ROOT_PATH = '/apis/experiencecloud';
-  payload.resource.children = removeChildren(payload.resource.children, 5);
+  payload.resource.children = removeChildren(payload.resource.children, 7);
   payload.resource.banner = {
     img: '',
     alt: ''
