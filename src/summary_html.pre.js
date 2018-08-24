@@ -27,7 +27,7 @@ function pre(payload, config) {
   payload.contextPath = '/apis/experiencecloud';
 
   config.logger.info('payload.path: ' + payload.path);
-  payload.resource.link = payload.path.startsWith(payload.contextPath) ? '' : '/' + payload.path.replace('.md', '.html');
+  payload.resource.link = (payload.path.startsWith(payload.contextPath) ? '' : '/') + payload.path.replace('.md', '.html');
   config.logger.info('payload.resource.link: ' + payload.resource.link);
 }
 
