@@ -26,9 +26,9 @@ function pre(payload) {
   //todo replace with info from request data
   payload.contextPath = '/apis/experiencecloud';
 
-  console.log('payload.path', payload.path, payload.path.startsWith(payload.contextPath));
+  payload.logger.log('payload.path', payload.path);
   payload.resource.link = payload.path.startsWith(payload.contextPath) ? '' : '/' + payload.path.replace('.md', '.html');
-  console.log('payload.resource.link', payload.resource.link);
+  payload.logger.log('payload.resource.link', payload.resource.link);
 }
 
 module.exports.pre = pre;
