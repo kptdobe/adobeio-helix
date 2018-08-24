@@ -22,13 +22,13 @@
  * @param payload The current payload of processing pipeline
  * @param payload.resource The content resource
  */
-function pre(payload) {
+function pre(payload, config) {
   //todo replace with info from request data
   payload.contextPath = '/apis/experiencecloud';
 
-  payload.logger.log('payload.path', payload.path);
+  config.logger.log('payload.path', payload.path);
   payload.resource.link = payload.path.startsWith(payload.contextPath) ? '' : '/' + payload.path.replace('.md', '.html');
-  payload.logger.log('payload.resource.link', payload.resource.link);
+  config.logger.log('payload.resource.link', payload.resource.link);
 }
 
 module.exports.pre = pre;
