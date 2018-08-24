@@ -17,7 +17,7 @@
   -->
 <a class="solutionslisting__container" href="${it.resource.link}" target="_self">
     <div class="solutionslisting__logo">
-    <span class="solutionslisting__icon ${it.resource.icon}"></span>
+    <span class="solutionslisting__icon ${it.resource.meta.icon}"></span>
     </div>
     <div class="solutionslisting__text">
         <h3>

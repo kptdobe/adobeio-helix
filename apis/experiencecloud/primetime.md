@@ -3,6 +3,7 @@ references:
   - target
   - campaign
   - aem
+icon: adobe-icon-pr
 ---
 
 # Adobe Primetime

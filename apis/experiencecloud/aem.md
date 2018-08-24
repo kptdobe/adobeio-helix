@@ -3,6 +3,7 @@ references:
   - primetime
   - campaign
   - target
+icon: adobe-icon-experiencemanager
 ---
 
 # Adobe Experience Manager
