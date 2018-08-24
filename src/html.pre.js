@@ -15,16 +15,10 @@
  * limitations under the License.
  *
  */
-
-function removeChildren(children, n) {
-  let ret = children;
-  if (ret && ret.length > 0) {
-    for(let i = 0; i < n; i++) {
-      ret = ret.slice(1);
-    }
-  }
-  return ret;
-}
+const select = require('unist-util-select');
+const visit = require('unist-util-visit');
+const toHAST = require('mdast-util-to-hast');
+const toHTML = require('hast-util-to-html');
 
 /**
  * The 'pre' function that is executed before the HTML is rendered
@@ -34,37 +28,42 @@ function removeChildren(children, n) {
 function pre(payload) {
 
   //todo replace with info from request data
-  const ROOT_PATH = '/apis/experiencecloud';
-  payload.resource.children = removeChildren(payload.resource.children, 7);
+  payload.contextPath = '/apis/experiencecloud';
+  
+  // banner is first image and banner text is image alt
   payload.resource.banner = {
     img: '',
-    alt: ''
+    text: ''
   };
-  payload.resource.references = [];
-
-  if (payload.resource.mdast.children.length > 3) {
-    const heading = payload.resource.mdast.children[2];
-    if (heading.children && heading.children.length > 0) {
-        const img = heading.children[0];
-        if (img.type === 'image') {
-          payload.resource.banner.img = img.url;
-          payload.resource.banner.text = img.alt;
-        }
-    }
-    
-    const links = payload.resource.mdast.children[3];
-    if (links.children && links.children.length > 0) {
-      links.children.forEach(ref => {
-        if (ref.type === 'link') {
-          const p = ref.url.substring(1, ref.url.lastIndexOf('.'));
-          console.log('p',p);
-          payload.resource.references.push({
-            path: ROOT_PATH + p
-          });
-        }
-      });
+  const firstImg = select(payload.resource.mdast, 'image');
+  if (firstImg.length > 0) {
+    payload.resource.banner = {
+      img: firstImg[0].url,
+      text: firstImg[0].alt
     }
   } 
+
+  const content = [];
+  let foundFirstImg = false;
+  // content is everything after first image
+  visit(payload.resource.mdast, 'paragraph', function (node) {
+    if (foundFirstImg) {
+      // start adding nodes to result only after first image found
+      const hast = toHAST(node);
+      const html = toHTML(hast);
+      content.push(html);
+    }
+    if (!foundFirstImg && node.children.length > 0 && node.children[0].type === 'image') {
+      // look for first image
+      foundFirstImg = true;
+    }
+  });
+
+  payload.resource.content = content;
+  
+  // avoid htl execution error if missing
+  payload.resource.meta = payload.resource.meta || {};
+  payload.resource.meta.references = payload.resource.meta.references || [];
 }
 
 module.exports.pre = pre;

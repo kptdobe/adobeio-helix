@@ -1,10 +1,15 @@
+---
+references: 
+  - primetime
+  - campaign
+  - target
+---
+
 # Adobe Experience Manager
 
 A comprehensive content management solution for building websites, mobile apps and forms.
 
 ![Make delivering great digital experiences look easy.](./aem.jpg)
-
-[primetime](./primetime.html) [campaign](./campaign.html) [target](./target.html)
 
 Adobe Experience Manager (AEM), is a comprehensive content management solution for building websites, mobile apps and forms. And it makes it easy to manage your marketing content and assets.
 

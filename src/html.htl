@@ -295,7 +295,7 @@
             <div class="grid-cols-8 grid-offset-4">
                 <div>
                     <div class="udp-text Default">
-                        <div data-sly-list="${it.resource.children}">
+                        <div data-sly-list="${it.resource.content}">
                             <div class="container">${item}</div>
                         </div>
                     </div>
@@ -313,9 +313,9 @@
                                 <section>
                                     <h2 class="heading heading--display">Discover other products</h2>
                                     <div class="grid-row height-balancer">
-                                        <ul class="solutionslisting__list solutionslisting__list--small-icons" data-sly-list="${it.resource.references}">
+                                        <ul class="solutionslisting__list solutionslisting__list--small-icons" data-sly-list="${it.resource.meta.references}">
                                             <li class="solutionslisting__item">
-                                                <esi:include src="${item.path}.summary.html">
+                                                <esi:include src="${it.contextPath}/${item}.summary.html">
                                             </li>
                                         </ul>
                                     </div>

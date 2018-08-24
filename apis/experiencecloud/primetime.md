@@ -1,10 +1,15 @@
+---
+references: 
+  - target
+  - campaign
+  - aem
+---
+
 # Adobe Primetime
 
 A multiscreen TV platform that helps broadcasters, cable networks and service providers create and monetize engaging and personalized TV and film experiences.
 
 ![Make every screen a TV.](./primetime.jpg)
-
-[target](./target.html) [campaign](./campaign.html) [aem](./aem.html)
 
 A multiscreen TV platform that helps broadcasters, cable networks and service providers create and monetize engaging and personalized TV and film experiences.
 

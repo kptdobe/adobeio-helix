@@ -1,3 +1,10 @@
+---
+references: 
+  - aem
+  - primetime
+  - campaign
+  - target
+---
 # Hello AdobeIO
 
 This is the welcome page.

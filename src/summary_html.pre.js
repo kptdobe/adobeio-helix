@@ -23,7 +23,12 @@
  * @param payload.resource The content resource
  */
 function pre(payload) {
-  payload.resource.link = payload.path.replace('.md', '.html');
+  //todo replace with info from request data
+  payload.contextPath = '/apis/experiencecloud';
+
+  console.log('payload.path', payload.path, payload.path.startsWith(payload.contextPath));
+  payload.resource.link = payload.path.startsWith(payload.contextPath) ? '' : '/' + payload.path.replace('.md', '.html');
+  console.log('payload.resource.link', payload.resource.link);
 }
 
 module.exports.pre = pre;
