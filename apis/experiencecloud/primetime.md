@@ -1,8 +1,8 @@
 ---
 references: 
-  - target
-  - campaign
-  - aem
+  - /apis/experiencecloud/target
+  - /apis/experiencecloud/campaign
+  - /apis/experiencecloud/aem
 icon: adobe-icon-pr
 ---
 

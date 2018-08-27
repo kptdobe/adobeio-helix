@@ -1,8 +1,8 @@
 ---
 references: 
-  - target
-  - primetime
-  - aem
+  - /apis/experiencecloud/target
+  - /apis/experiencecloud/primetime
+  - /apis/experiencecloud/aem
 icon: adobe-icon-campaign
 ---
 

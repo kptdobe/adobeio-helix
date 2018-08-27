@@ -23,12 +23,7 @@
  * @param payload.resource The content resource
  */
 function pre(payload, config) {
-  //todo replace with info from request data
-  payload.contextPath = '/apis/experiencecloud';
-
-  config.logger.info('payload.path: ' + payload.path);
-  payload.resource.link = (payload.path.startsWith(payload.contextPath) ? '' : '/') + payload.path.replace('.md', '.html');
-  config.logger.info('payload.resource.link: ' + payload.resource.link);
+  payload.resource.link = payload.path.replace('.md', '.html');
 
   // avoid htl execution error if missing
   payload.resource.meta = payload.resource.meta || {};

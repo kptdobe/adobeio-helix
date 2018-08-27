@@ -1,8 +1,8 @@
 ---
 references: 
-  - primetime
-  - campaign
-  - target
+  - /apis/experiencecloud/primetime
+  - /apis/experiencecloud/campaign
+  - /apis/experiencecloud/target
 icon: adobe-icon-experiencemanager
 ---
 

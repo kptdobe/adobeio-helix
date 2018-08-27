@@ -25,11 +25,7 @@ const toHTML = require('hast-util-to-html');
  * @param payload The current payload of processing pipeline
  * @param payload.resource The content resource
  */
-function pre(payload) {
-
-  //todo replace with info from request data
-  payload.contextPath = '/apis/experiencecloud';
-  
+function pre(payload, config) {
   // banner is first image and banner text is image alt
   payload.resource.banner = {
     img: '',
