@@ -60,6 +60,7 @@ function pre(payload, config) {
   // avoid htl execution error if missing
   payload.resource.meta = payload.resource.meta || {};
   payload.resource.meta.references = payload.resource.meta.references || [];
+  payload.resource.meta.icon = payload.resource.meta.icon || '';
 }
 
 module.exports.pre = pre;

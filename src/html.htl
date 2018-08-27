@@ -179,7 +179,7 @@
             <div class="udpTopnav__item udpTopnav__item--productheader">
                 <div class="udpTopnav__productheader">
                     <span class="udpTopnav__icon">
-                        <i class="adobe-product-icon adobe-icon-experiencemanager icon-spacing"></i>
+                        <i class="adobe-product-icon ${it.resource.meta.icon} icon-spacing"></i>
     
                     </span>
                     <h1 class="udpTopnav__title ">
@@ -188,7 +188,7 @@
                             <span class="udpTopnav__title__site__label">I/O</span>
                         </a>
     
-                        <span class="udpTopnav__title__page" href=".html">Adobe Experience Manager</span>
+                        <span class="udpTopnav__title__page" href=".html">${it.resource.title}</span>
     
                     </h1>
                 </div>
@@ -202,22 +202,10 @@
     
             <div class="udpTopnav__item udpTopnav__item--sectionnav">
                 <nav class="udpSectionnav">
-                    <div class="udpSectionnav__mobile">
-                        <a rel="nofollow" href="/apis.html" class="udpSectionnav__mobile__up"> </a>
-                        <div class="udpSectionnav__selectwrapper">
-                            <select class="udpSectionnav__select" onchange="document.location.href=this.value">
-                                <option value="/apis/experiencecloud/aem.html" selected="">Adobe Experience Manager</option>
-                                <option value="/apis/experiencecloud/aem/aemconnectors.html">AEM Connectors</option>
-                                <option value="/content/udp/en.html">Home</option>
-                                <option value="/apis.html">All APIs</option>
-                                <option value="https://console.adobe.io">Console</option>
-                            </select>
-                        </div>
-                    </div>
                     <div class="udpSectionnav__full">
                         <ul class="udpSectionnav__list">
                             <li class="udpSectionnav__item udpSectionnav__item--current">
-                                <span class="udpSectionnav__link udpSectionnav__link--active">Adobe Experience Manager</span>
+                                <span class="udpSectionnav__link udpSectionnav__link--active">${it.resource.title}</span>
                             </li>
                             <li class="udpSectionnav__item">
                                 <a class=" udpSectionnav__link" href="/apis/experiencecloud/aem/aemconnectors.html" target="_self">AEM

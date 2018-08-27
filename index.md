@@ -5,7 +5,7 @@ references:
   - /apis/experiencecloud/campaign
   - /apis/experiencecloud/target
 ---
-# Hello AdobeIO
+# AdobeIO APIs
 
 This is the welcome page.
 
