@@ -303,7 +303,7 @@
                                     <div class="grid-row height-balancer">
                                         <ul class="solutionslisting__list solutionslisting__list--small-icons" data-sly-list="${it.resource.meta.references}">
                                             <li class="solutionslisting__item">
-                                                <esi:include src="${item}.summary.html">
+                                                <esi:include src="${item}.summary.html"/>
                                             </li>
                                         </ul>
                                     </div>
