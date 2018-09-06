@@ -22,8 +22,8 @@
  * @param payload The current payload of processing pipeline
  * @param payload.resource The content resource
  */
-function pre(payload, config) {
-  payload.resource.link = payload.path.replace('.md', '.html');
+function pre(payload, action) {
+  payload.resource.link = action.request.params.path.replace('.md', '.html');
 
   // avoid htl execution error if missing
   payload.resource.meta = payload.resource.meta || {};
