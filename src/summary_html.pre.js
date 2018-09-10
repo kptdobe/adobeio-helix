@@ -23,6 +23,7 @@
  * @param payload.resource The content resource
  */
 function pre(payload, action) {
+  console.log('summary', action.request.params);
   payload.resource.link = action.request.params.path.replace('.md', '.html');
 
   // avoid htl execution error if missing

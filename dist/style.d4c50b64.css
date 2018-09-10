@@ -81,7 +81,6 @@ h1 {
     font-size: 2.857em;
     line-height: 1.2em;
     padding-bottom: .625em;
-    background: url("clientlib-site/assets/icons/header-divider.jpg") no-repeat;
     background-size: 235px;
     background-position: left bottom;
     font-weight: 300;
@@ -124,7 +123,6 @@ h3,
     color: #999;
     line-height: 1.44em;
     padding-bottom: .5em;
-    background: url("clientlib-site/assets/icons/header-divider.jpg") no-repeat;
     background-size: 235px;
     background-position: left bottom
 }
@@ -1326,7 +1324,6 @@ main .grid-container form .form_button_submit {
 .udp-sidebar-template .ref-doc-api h2 {
     padding-bottom: .3em;
     margin-bottom: 17px;
-    background: url("../../../apps/udp/components/structure/fullwidthcontentpage-sidenav/clientlib/assets/icons/header-divider.jpg") no-repeat;
     background-size: 235px;
     background-position: left bottom
 }
@@ -1909,7 +1906,6 @@ footer {
 }
 
 footer .adobe-footer-logo {
-    background: url("clientlib-site/assets/logos/adobe-logo-ftr.png") no-repeat bottom left;
     background-size: 50px auto
 }
 
@@ -2428,7 +2424,6 @@ main h3 {
 .udp-sidebar-template .ref-doc-api h2 {
     padding-bottom: .3em;
     margin-bottom: 17px;
-    background: url("../../../apps/udp/components/structure/aemsidenavtemplate/clientlib/assets/icons/header-divider.jpg") no-repeat;
     background-size: 235px;
     background-position: left bottom
 }
@@ -2993,7 +2988,6 @@ footer {
 }
 
 footer .adobe-footer-logo {
-    background: url("clientlib-site/assets/logos/adobe-logo-ftr.png") no-repeat bottom left;
     background-size: 50px auto
 }
 
@@ -4185,7 +4179,6 @@ only screen and (min-width:33.125em) and (max-width:59.3125em) {
 }
 
 .udpSidenav__selectwrapper:after {
-    background: url(clientlib-site/assets/icons/chevron-down.svg);
     -webkit-background-size: cover;
     background-size: cover;
     display: block;
@@ -6668,7 +6661,6 @@ only screen and (min-width:70.5625em) {
 }
 
 .udpForm__selectwrapper:after {
-    background: url(clientlib-site/assets/icons/chevron-down.svg);
     background-repeat: no-repeat;
     background-position: center;
     -webkit-background-size: 1em 1em;
@@ -7649,7 +7641,6 @@ form .udpFormSelect__radio {
 }
 
 .udpSectionnav__selectwrapper:after {
-    background: url(clientlib-site/assets/icons/chevron-down.svg);
     -webkit-background-size: cover;
     background-size: cover;
     display: block;
