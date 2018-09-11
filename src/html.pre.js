@@ -40,20 +40,28 @@ function pre(payload) {
   } 
 
   const content = [];
-  let foundFirstImg = false;
-  // content is everything after first image
-  visit(payload.resource.mdast, 'paragraph', function (node) {
-    if (foundFirstImg) {
-      // start adding nodes to result only after first image found
-      const hast = toHAST(node);
-      const html = toHTML(hast);
-      content.push(html);
-    }
-    if (!foundFirstImg && node.children.length > 0 && node.children[0].type === 'image') {
-      // look for first image
-      foundFirstImg = true;
+  let currentSection = { class:"", children:[]};
+
+  visit(payload.resource.mdast, ["paragraph","heading","thematicBreak"], function (node) {
+    const hast = toHAST(node);
+    const html = toHTML(hast);
+
+    if (node.type == "thematicBreak") {
+      content.push(currentSection);
+      currentSection = { class:"", children:[]};
+    } else {
+      if (!currentSection.class) {
+        if (node.children[0].type == "image") {
+          currentSection.class = "banner";
+        } else {
+          currentSection.class = "standard"
+        }
+      }
+    currentSection.children.push(html);
     }
   });
+
+  content.push(currentSection);
 
   payload.resource.content = content;
   
