@@ -16,9 +16,82 @@
  *
  */
 const select = require('unist-util-select');
-const visit = require('unist-util-visit');
+const visit  = require('unist-util-visit');
 const toHAST = require('mdast-util-to-hast');
 const toHTML = require('hast-util-to-html');
+
+
+/**
+ * The LayoutMachine is an implmentation of a state machine pattern
+ * that tries to intelligently lay out the page.
+ */
+var LayoutMachine = {
+  /*
+    States:
+      init -> hero, flow
+      hero -> flow
+  */
+  validStates: ['hero', 'flow'],
+  states: ['init'],
+  get state(){
+    return this.states[this.states.length - 1];
+  },
+  set state(v){
+    console.log(`${this.state} -> ${v}`);
+
+    this.states.push(v);
+    return v;
+  },
+  layout: function(section){
+    // allow manual overide of class
+    // this might be instant-cruft–discuss.
+    if (section.class && section.class.length) {
+      // If class is a valid state, use it, otherwise default to 'flow'
+      if (this.validStates.includes(section.class)){
+        this.states.push(section.class);
+      }
+      else{
+        this.states.push('flow');
+      }
+    }
+    else{
+      switch(this.state){
+        case 'init':
+          // If the section has an h2 & an image, it's a hero
+          let image = select(section, 'image');
+          let h = select(section, 'heading');
+          if (h.length == 1 && h[0].depth == 2 && image.length == 1){
+            h = h[0];
+            this.state = 'hero';
+            debugger;
+            section.children = [h];
+            section.type = 'standard';
+            section.style = `background-image: url("#{image});`;
+
+            break;
+          }
+          else{
+            this.state = 'flow';
+            break;
+          }
+        case 'hero':
+          this.state = 'flow';
+          break;
+      }
+      section.class = this.state;
+    }
+
+    let children = [];
+    for (let e of section.children){
+      children.push(toHTML(toHAST(e)));
+    }
+    section.children = children;
+    return section;
+  },
+  get hasHero(){
+    return this.states.includes('hero');
+  }
+}
 
 /**
  * The 'pre' function that is executed before the HTML is rendered
@@ -26,6 +99,9 @@ const toHTML = require('hast-util-to-html');
  * @param payload.resource The content resource
  */
 function pre(payload) {
+
+  let title = null;
+
   // banner is first image and banner text is image alt
   payload.resource.banner = {
     img: '',
@@ -37,34 +113,32 @@ function pre(payload) {
       img: firstImg[0].url,
       text: firstImg[0].alt
     }
-  } 
+  }
 
   const content = [];
-  let currentSection = { class:"", children:[]};
+  let currentSection = {children: [], type: 'standard'};
 
   visit(payload.resource.mdast, ["paragraph","heading","thematicBreak"], function (node) {
-    const hast = toHAST(node);
-    const html = toHTML(hast);
 
+    if (node.type == "heading" && node.depth == 1 && !title){
+      title = node.children[0].value;
+      return;
+    }
     if (node.type == "thematicBreak") {
-      content.push(currentSection);
-      currentSection = { class:"", children:[]};
-    } else {
-      if (!currentSection.class) {
-        if (node.children[0].type == "image") {
-          currentSection.class = "banner";
-        } else {
-          currentSection.class = "standard"
-        }
-      }
-    currentSection.children.push(html);
+      content.push(LayoutMachine.layout(currentSection));
+      currentSection = {children: [], type: 'standard'};
+    }
+    else {
+      currentSection.children.push(node);
     }
   });
 
+  // content.push(LayoutMachine.layout(currentSection));
   content.push(currentSection);
 
+  debugger;
   payload.resource.content = content;
-  
+
   // avoid htl execution error if missing
   payload.resource.meta = payload.resource.meta || {};
   payload.resource.meta.references = payload.resource.meta.references || [];
