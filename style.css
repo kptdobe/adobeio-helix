@@ -1,0 +1,27 @@
+nav {
+  background-color: #fff;
+}
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer {
+  background: #454545;
+}
+footer {
+  color: #fff;
+}
+footer nav {
+  color: #fff;
+  background: #454545;
+}
+footer nav a {
+  color: #999;
+}
+
+footer nav a:active {
+  color: #999;
+}
+

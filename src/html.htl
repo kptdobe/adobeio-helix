@@ -20,14 +20,97 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="shortcut icon" type="image/x-icon" href="./dist/favicon.ico">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css" crossorigin="anonymous">
     <title>${it.resource.title}</title>
- 
-    <main data-sly-list.section="${it.resource.content}">
-        <div class="section ${section.class} ${sectionList.odd?'odd':'even'}" data-sly-list.child="${section.children}">
-            <div class="container">${child}</div>
-        </div>
-    </main>
+</head>
+<body>
 
-    
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+    <a class="navbar-brand" href="/">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 24 20" focusable="false">
+            <path fill="#FF0000" d="M15.1,0H24v20L15.1,0z M8.9,0H0v20L8.9,0z M12,7.4L17.6,20h-3.8l-1.6-4H8.1L12,7.4z"></path>
+        </svg>
+        <span>Adobe Developers</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">APIs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link">Console</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light sticky-top">
+
+</nav>
+
+<main data-sly-list.section="${it.resource.content}">
+    <div class="section ${section.class} ${sectionList.odd?'odd':'even'}" data-sly-list.child="${section.children}">
+        <div class="container">${child}</div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container-fluid">
+        <nav class="row">
+            <div class="col-sm">
+                <h4>APIs</h4>
+                <ul>
+                    <li><a href="#">Creative Cloud</a></li>
+                    <li><a href="#">Document Cloud</a></li>
+                    <li><a href="#">Experience Cloud</a></li>
+                    <li><a href="#">Adobe Cloud Platform</a></li>
+                </ul>
+            </div>
+            <div class="col-sm">
+                <h4>Blogs and Community</h4>
+                <ul>
+                    <li><a href="https://medium.com/adobe-io">Adobe I/O Blog</a></li>
+                    <li><a href="https://twitter.com/adobeio">Adobe I/O on Twitter</a></li>
+                    <li><a href="https://adobe.github.io">Adobe on GitHub</a></li>
+                    <li><a href="https://blog.phonegap.com">PhoneGap Blog</a></li>
+                    <li><a href="https://www.youtube.com/adobeio">Adobe I/O on YouTube</a></li>
+                </ul>
+            </div>
+            <div class="col-sm">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="/contactus.html" >Contact Us</a></li>
+                    <li><a href="https://stackoverflow.com/questions/tagged/adobe">Adobe on StackOverflow</a></li>
+                    <li><a href="https://helpx.adobe.com/support.html">Adobe Product Support</a></li>
+                </ul>
+            </div>
+
+            <div class="col-sm">
+                <h4>Adobe</h4>
+                <ul>
+                    <li><a href="/about.html">About Adobe I/O</a></li>
+                    <li><a href="/open.html">Open Source at Adobe</a></li>
+                    <li><a href="https://www.adobe.com/privacy.html">Privacy Policy</a></li>
+                    <li><a href="https://www.adobe.com/legal/terms.html">Terms of Use</a></li>
+                    <li><a href="https://www.adobe.com/privacy/cookies.html">Cookies</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div> Copyright © 2018 Adobe Systems Incorporated. All rights reserved.</div>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
 </body>
 </html>
