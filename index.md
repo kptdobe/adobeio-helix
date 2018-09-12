@@ -59,7 +59,7 @@ Help us shape the future of Photoshop as a Service.
 
 Adobe I/O is the foundation of our developer ecosystem, helping customers to extend, customize, and integrate with Adobe’s Cloud Platform
 
-Find out more about Adobe I/O. 
+Find out more about Adobe I/O.
 
 [Start Exploring APIs](https://www.adobe.io/apis.html)
 

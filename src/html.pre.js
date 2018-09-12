@@ -25,7 +25,7 @@ const toHTML = require('hast-util-to-html');
  * The LayoutMachine is an implmentation of a state machine pattern
  * that tries to intelligently lay out the page.
  */
-var LayoutMachine = {
+const LayoutMachine = {
   /*
     States:
       init -> hero, flow
@@ -63,7 +63,6 @@ var LayoutMachine = {
           if (h.length == 1 && h[0].depth == 2 && image.length == 1){
             h = h[0];
             this.state = 'hero';
-            debugger;
             section.children = [h];
             section.type = 'standard';
             section.style = `background-image: url("#{image});`;
@@ -133,10 +132,8 @@ function pre(payload) {
     }
   });
 
-  // content.push(LayoutMachine.layout(currentSection));
-  content.push(currentSection);
+  content.push(LayoutMachine.layout(currentSection));
 
-  debugger;
   payload.resource.content = content;
 
   // avoid htl execution error if missing
