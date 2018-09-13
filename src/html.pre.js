@@ -34,7 +34,7 @@ const LayoutMachine = {
       init -> hero, flow
       hero -> flow
   */
-  validStates: ['hero', 'flow', 'gallery'],
+  validStates: ['hero', 'flow', 'gallery', 'textimage', 'imagetext', 'text'],
   states: ['init'],
   get state() {
     return this.states[this.states.length - 1];
@@ -62,6 +62,9 @@ const LayoutMachine = {
           }
         case 'hero':
         case 'flow':
+        case 'textimage':
+        case 'imagetext':
+        case 'text':
           if (this.isTextImage(section)) {
             this.state = 'textimage';
           } else {
