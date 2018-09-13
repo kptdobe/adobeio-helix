@@ -56,20 +56,7 @@
 
 </nav>
 
-<main data-sly-list.section="${payload.content.sections.children}">
-    <sly data-sly-test="${section.type=='hero'}">
-        <!-- hero section -->
-        <section class="${payload.content.sections.hero.sectionClass}">
-            <div class="hero_wrapper">
-                <div class="hero_text">
-                    <div class="hero_title">${payload.content.sections.hero.p}</div>
-                </div>
-            </div>
-            <div class="hero_img">${payload.content.sections.hero.img}</div>
-        </section>
-    </sly>
-    <sly data-sly-test="${section.type!='hero'}">${section.html}</sly>
-</main>
+<main>${payload.content.sections.html}</main>
 
 <footer class="footer">
     <div class="container-fluid">

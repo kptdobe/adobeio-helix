@@ -175,10 +175,10 @@ function getSmartDesign(mdast, breakSection) {
   return sections;
 }
 
-function computeSectionsHAST(sections) {
+function computeSectionsHAST(sectionsMdast) {
   const nodes = [];
   let odd = false;
-  sections.forEach(function (section) {
+  sectionsMdast.forEach(function (section) {
     const hast = toHAST(section);
     const htmlNodes = [];
     hast.children.forEach(function (h) {
@@ -231,6 +231,54 @@ function sectionsPipeline(payload, breakSection) {
   }
 }
 
+function sectionWrapper(sections, type, tagName, wrapperTag, classes) {
+  const sectionsFound = [];
+  const sectionsHAST = [];
+
+  sections.children.forEach(function(s) {
+    sectionsHAST.push(s.hast);
+    if (s.type == type) {
+      sectionsFound.push(s);
+    }
+  });
+  
+  sectionsFound.forEach(function(s) {
+    s.hast.children.forEach(function(node, index) {
+      if (node.tagName == tagName) {
+        console.log('found hast node', node);
+        const rootNewNode = {};
+        let currentNode = rootNewNode;
+        classes.forEach(function(css, index) {
+          currentNode.type = 'element';
+          currentNode.tagName = wrapperTag;
+          currentNode.properties = {
+            className: css
+          }
+          currentNode.children = [];
+          if (index < classes.length-1) {
+            //link next node to parent
+            const n = currentNode;
+            currentNode = {};
+            n.children.push(currentNode);
+          }
+        });
+        currentNode.children = [];
+        currentNode.children.push(node);
+        console.log('new node to replace', rootNewNode);
+        s.hast.children[index] = rootNewNode;
+      }
+    });
+    s.html = toHTML(s.hast);
+  });
+
+
+  sections.html = toHTML({
+    type: 'root',
+    children: sectionsHAST
+  });
+}
+
+
 /**
  * The 'pre' function that is executed before the HTML is rendered
  * @param payload The current payload of processing pipeline
@@ -263,19 +311,9 @@ function pre(payload) {
 
   // EXTENSION point demo
   // -> I need a different DOM for the hero section
-  if (payload.content.sections.children.length > 0 && payload.content.sections.children[0].type == 'hero') {
-    const hero = payload.content.sections.children[0].hast;
-    const img = hastSelect('img', hero);
-    const p = hastSelect('p', hero);
-
-    // create object to be consumed in HTML to render custom HTML for hero section
-    payload.content.sections.hero = {
-      sectionClass: hero.properties.className,
-      img: toHTML(img),
-      p: toHTML(p)
-    };
-  }
-
+  sectionWrapper(payload.content.sections, 'hero', 'p', 'div', ['hero_wrapper', 'hero_text', 'hero_title']);
+  sectionWrapper(payload.content.sections, 'hero', 'img', 'div', ['hero_img']);
+  
   // avoid htl execution error if missing
   payload.content.meta = payload.content.meta || {};
   payload.content.meta.references = payload.content.meta.references || [];
