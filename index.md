@@ -42,7 +42,7 @@ Right now, Adobe I/O is working towards providing a single source for developer 
  
  ![Photoshop](https://www.adobe.io/content/dam/adobeio/apis/creativecloud/photoshop/ps_logo.svg)
  
- ## Photoshop Unleashed!
+### Photoshop Unleashed!
  
 Adobe is working on APIs to unleash the power of Photoshop. 
 
