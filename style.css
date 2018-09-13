@@ -25,3 +25,27 @@ footer nav a:active {
   color: #999;
 }
 
+
+/* smartdesign */
+.hero {
+  min-height: 300px;
+}
+
+.hero h2 {
+  font-weight: 300 !important;
+  font-size: 30px;
+  position: absolute;
+  max-width: 55%;
+  text-align: center;
+  margin-top: 70px;
+  margin-left: 5%;
+}
+
+.hero img {
+  position: absolute;
+  top: 72px;
+  left: 0;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+

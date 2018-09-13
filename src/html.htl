@@ -56,11 +56,7 @@
 
 </nav>
 
-<main data-sly-list.section="${it.resource.content}">
-    <div class="section ${section.class} ${sectionList.odd?'odd':'even'}" data-sly-list.child="${section.children}">
-        <div class="container">${child}</div>
-    </div>
-</main>
+<main>${it.resource.sections}</main>
 
 <footer class="footer">
     <div class="container-fluid">
