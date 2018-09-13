@@ -58,20 +58,26 @@ const LayoutMachine = {
         case 'init':
           if (this.isHero(section)) {
             this.state = 'hero';
-          } else {
-            if (this.isGallery(section)) {
-              this.state = 'gallery';
-            } else {
-              this.state = 'flow';
-            }
+            break;
           }
-          break;
-        case 'flow':
         case 'hero':
-          if (this.isGallery(section)) {
-            this.state = 'gallery';
+        case 'flow':
+          if (this.isTextImage(section)) {
+            this.state = 'textimage';
           } else {
-            this.state = 'flow';
+            if (this.isImageText(section)) {
+              this.state = 'imagetext';
+            } else {
+              if (this.isText(section)) {
+                this.state = 'text';
+              } else {
+                if (this.isGallery(section)) {
+                  this.state = 'gallery';
+                } else {
+                  this.state = 'flow';
+                }
+              }
+            }
           }
           break;
       }
@@ -91,16 +97,35 @@ const LayoutMachine = {
   },
 
   isHero(section) {
-    // If the section has an h2 & an image in the first level, it's a hero
-    const image = select(section, 'image');
-    const p = select(section, 'paragraph');
-    return (p.length == 1 && image.length == 1);
+    // If the section has one paragraph and one image, it's a hero
+    const images = select(section, 'image');
+    const paragraphs = select(section, 'paragraph');
+    return (paragraphs.length == 1 && images.length == 1);
+  },
+
+  isTextImage(section) {
+    // If the section start with a paragraph then an image, it's a text image
+    return (section.children[0].length > 2 && section.children[0].type == 'paragraph' && section.children[1].type == 'image');
+  },
+
+  isImageText(section) {
+    // If the section start with an image then a paragraph, it's a text image
+    return (section.children[0].length > 2 && section.children[1].type == 'paragraph' && section.children[0].type == 'image');
+  },
+
+  isText(section) {
+    // If the section contains only paragraph and optionally starts with a heading, it's a text
+    const images = select(section, 'image');
+    const paragraphs = select(section, 'paragraph');
+    const headings = select(section, 'heading');
+    return images.length == 0 && paragraphs.length > 0 && (headings.length == 0 || section.children[0].type == 'heading');
   },
 
   isGallery(section) {
     // If the section has more than 2 images, it is a gallery
-    const image = select(section, 'image');
-    return image.length > 2
+    const images = select(section, 'image');
+    const paragraphs = select(section, 'paragraph');
+    return images.length > 2 && paragraphs.length == 0;
   },
 }
 
