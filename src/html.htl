@@ -22,7 +22,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="./dist/favicon.ico">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="/style.css" crossorigin="anonymous">
-    <title>${it.resource.title}</title>
+    <title>${payload.content.title}</title>
 </head>
 <body>
 
@@ -56,16 +56,16 @@
 
 </nav>
 
-<main data-sly-list.section="${it.resource.sections.children}">
+<main data-sly-list.section="${payload.content.sections.children}">
     <sly data-sly-test="${section.type=='hero'}">
         <!-- hero section -->
-        <section class="${it.resource.sections.hero.sectionClass}">
+        <section class="${payload.content.sections.hero.sectionClass}">
             <div class="hero_wrapper">
                 <div class="hero_text">
-                    <div class="hero_title">${it.resource.sections.hero.h}</div>
+                    <div class="hero_title">${payload.content.sections.hero.h}</div>
                 </div>
             </div>
-            <div class="hero_img">${it.resource.sections.hero.img}</div>
+            <div class="hero_img">${payload.content.sections.hero.img}</div>
         </section>
     </sly>
     <sly data-sly-test="${section.type!='hero'}">${section.html}</sly>

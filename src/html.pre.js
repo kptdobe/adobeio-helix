@@ -165,7 +165,7 @@ function computeSectionsHAST(sections) {
 
 function sectionsPipeline(payload) {
   // get the sections MDAST
-  const sectionsMdast = getSmartDesign(payload.resource.mdast);
+  const sectionsMdast = getSmartDesign(payload.content.mdast);
 
   // get the sections MDAST
   const sectionsHAST = computeSectionsHAST(sectionsMdast);
@@ -198,34 +198,34 @@ function sectionsPipeline(payload) {
 /**
  * The 'pre' function that is executed before the HTML is rendered
  * @param payload The current payload of processing pipeline
- * @param payload.resource The content resource
+ * @param payload.content The content resource
  */
 function pre(payload) {
 
   // banner is first image and banner text is image alt
-  payload.resource.banner = {
+  payload.content.banner = {
     img: '',
     text: ''
   };
-  const firstImg = select(payload.resource.mdast, 'image');
+  const firstImg = select(payload.content.mdast, 'image');
   if (firstImg.length > 0) {
-    payload.resource.banner = {
+    payload.content.banner = {
       img: firstImg[0].url,
       text: firstImg[0].alt
     }
   }
 
-  payload.resource.sections = sectionsPipeline(payload);
+  payload.content.sections = sectionsPipeline(payload);
 
   // EXTENSION point demo
   // -> I need a different DOM for the hero section
-  if (payload.resource.sections.children.length > 0 && payload.resource.sections.children[0].data.type == 'hero') {
-    const hero = payload.resource.sections.children[0].hast;
+  if (payload.content.sections.children.length > 0 && payload.content.sections.children[0].type == 'hero') {
+    const hero = payload.content.sections.children[0].hast;
     const img = hastSelect('img', hero);
     const h = hastSelect('h2', hero);
 
     // create object to be consumed in HTML to render custom HTML for hero section
-    payload.resource.sections.hero = {
+    payload.content.sections.hero = {
       sectionClass: hero.properties.className,
       img: toHTML(img),
       h: toHTML(h)
@@ -233,9 +233,9 @@ function pre(payload) {
   }
 
   // avoid htl execution error if missing
-  payload.resource.meta = payload.resource.meta || {};
-  payload.resource.meta.references = payload.resource.meta.references || [];
-  payload.resource.meta.icon = payload.resource.meta.icon || '';
+  payload.content.meta = payload.content.meta || {};
+  payload.content.meta.references = payload.content.meta.references || [];
+  payload.content.meta.icon = payload.content.meta.icon || '';
 }
 
 module.exports.pre = pre;
