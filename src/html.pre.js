@@ -40,8 +40,6 @@ const LayoutMachine = {
     return this.states[this.states.length - 1];
   },
   set state(v) {
-    console.log(`${this.state} -> ${v}`);
-
     this.states.push(v);
     return v;
   },
@@ -191,51 +189,41 @@ function pre(payload) {
   // get the sections MDAST
   const sectionsHAST = computeSectionsHAST(sections);
   
-// extension point
-// need a different DOM for the hero section
-if (sectionsHAST.length > 0 && sectionsHAST[0].data.type == 'hero') {
-  const hero = sectionsHAST[0];
-  const img = hastSelect('img', hero);
-  const h = hastSelect('h2', hero);
-  console.log(h, img);
+  // create a "convienence object" that gives access to individual mdast, hast and html for each section.
+  const sectionsDetails = [];
 
-  hero.children = [{
-    'type': 'element',
-    'tagName': 'div',
-    'properties': {
-      className: 'hero_wrapper'
-    }, 
-    children: [{
-      'type': 'element',
-      'tagName': 'div',
-      'properties': {
-        className: 'hero_text'
-      },
-      children: [{
-        'type': 'element',
-        'tagName': 'div',
-        'properties': {
-          className: 'hero_title'
-        },
-        children: [h]
-      }]
-    }]
-  }, {
-    'type': 'element',
-    'tagName': 'div',
-    'properties': {
-      className: 'hero_img'
-    },
-    children: [img]
-  }];
-}
+  sections.forEach(function (mdast, index) {
+    const hast = sectionsHAST[index];
+    sectionsDetails.push({
+      mdast: mdast,
+      hast: hast,
+      html: toHTML(hast)
+    });
+  });
 
-const html = toHTML({
-  type: 'root',
-  children: sectionsHAST
-});
+  const html = toHTML({
+    type: 'root',
+    children: sectionsHAST
+  });
 
-  payload.resource.sections = html;
+  payload.resource.sections = {
+    html,
+    children: sectionsDetails
+  };
+
+  // extension point
+  // need a different DOM for the hero section
+  if (sectionsHAST.length > 0 && sectionsHAST[0].data.type == 'hero') {
+    const hero = sectionsHAST[0];
+    const img = hastSelect('img', hero);
+    const h = hastSelect('h2', hero);
+
+    payload.resource.sections.hero = {
+      sectionClass: hero.properties.className,
+      img: toHTML(img),
+      h: toHTML(h)
+    };
+  }
 
   // avoid htl execution error if missing
   payload.resource.meta = payload.resource.meta || {};
