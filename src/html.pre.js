@@ -16,7 +16,7 @@
  *
  */
 const select = require('unist-util-select');
-const visit = require('unist-util-visit');
+const hastSelect = require('hast-util-select').select
 const toHAST = require('mdast-util-to-hast');
 const toHTML = require('hast-util-to-html');
 const mdastSqueezeParagraphs = require('mdast-squeeze-paragraphs');
@@ -156,7 +156,10 @@ function computeSectionsHAST(sections) {
         className: section.class + ' ' + ((odd = !odd) ? 'odd' : 'even'),
       },
       tagName: 'section',
-      children: hast.children
+      children: hast.children,
+      data: {
+        type: section.class
+      }
     });
   });
   return nodes;
@@ -182,13 +185,56 @@ function pre(payload) {
     }
   }
 
+  // get the sections MDAST
   const sections = getSmartDesign(payload.resource.mdast);
-  console.log('sections', sections);
+
+  // get the sections MDAST
   const sectionsHAST = computeSectionsHAST(sections);
-  const html = toHTML({
-    type: 'root',
-    children: sectionsHAST
-  })
+  
+// extension point
+// need a different DOM for the hero section
+if (sectionsHAST.length > 0 && sectionsHAST[0].data.type == 'hero') {
+  const hero = sectionsHAST[0];
+  const img = hastSelect('img', hero);
+  const h = hastSelect('h2', hero);
+  console.log(h, img);
+
+  hero.children = [{
+    'type': 'element',
+    'tagName': 'div',
+    'properties': {
+      className: 'hero_wrapper'
+    }, 
+    children: [{
+      'type': 'element',
+      'tagName': 'div',
+      'properties': {
+        className: 'hero_text'
+      },
+      children: [{
+        'type': 'element',
+        'tagName': 'div',
+        'properties': {
+          className: 'hero_title'
+        },
+        children: [h]
+      }]
+    }]
+  }, {
+    'type': 'element',
+    'tagName': 'div',
+    'properties': {
+      className: 'hero_img'
+    },
+    children: [img]
+  }];
+}
+
+const html = toHTML({
+  type: 'root',
+  children: sectionsHAST
+});
+
   payload.resource.sections = html;
 
   // avoid htl execution error if missing

@@ -28,24 +28,78 @@ footer nav a:active {
 
 /* smartdesign */
 .hero {
-  min-height: 300px;
+  height: 20em;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  height: 30em;
+  padding-top: 0;
+  max-height: 280px;
+}
+
+.hero .hero_wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero .hero_text {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+
+.hero .hero_title {
+  margin: 0 auto;
+  padding: 0 2em;
+  max-width: 40em;
+  color: white;
+  font-size: 2em;
+  font-weight: 100;
 }
 
 .hero h2 {
-  font-weight: 300 !important;
+  font-weight: 300;
   font-size: 30px;
-  position: absolute;
-  max-width: 55%;
+  color: #000;
   text-align: center;
-  margin-top: 70px;
-  margin-left: 5%;
+  font-family: "adobe-clean", sans-serif;
+  line-height: 1.2em;
+  padding-bottom: .625em;
+}
+
+.hero .hero_img {
+  position: absolute;
+  -o-object-fit: cover;
+  object-fit: cover;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
 }
 
 .hero img {
-  position: absolute;
-  top: 72px;
-  left: 0;
+  min-width: 100%;
+  min-height: 100%;
   -o-object-fit: cover;
   object-fit: cover;
+  max-width: 100%;
 }
 
