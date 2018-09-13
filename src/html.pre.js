@@ -105,12 +105,12 @@ const LayoutMachine = {
 
   isTextImage(section) {
     // If the section start with a paragraph then an image, it's a text image
-    return (section.children[0].length > 2 && section.children[0].type == 'paragraph' && section.children[1].type == 'image');
+    return (section.children.length > 2 && section.children[0].type == 'paragraph' && section.children[1].type == 'image');
   },
 
   isImageText(section) {
     // If the section start with an image then a paragraph, it's a text image
-    return (section.children[0].length > 2 && section.children[1].type == 'paragraph' && section.children[0].type == 'image');
+    return (section.children.length > 2 && section.children[1].type == 'paragraph' && section.children[0].type == 'image');
   },
 
   isText(section) {
