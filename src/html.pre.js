@@ -163,6 +163,38 @@ function computeSectionsHAST(sections) {
   return nodes;
 }
 
+function sectionsPipeline(payload) {
+  // get the sections MDAST
+  const sectionsMdast = getSmartDesign(payload.resource.mdast);
+
+  // get the sections MDAST
+  const sectionsHAST = computeSectionsHAST(sectionsMdast);
+
+  // create a "convienence object" that gives access to individual mdast, hast and html for each section.
+  const sectionsDetails = [];
+
+  sectionsMdast.forEach(function (mdast, index) {
+    const hast = sectionsHAST[index];
+    sectionsDetails.push({
+      mdast: mdast,
+      hast: hast,
+      html: toHTML(hast),
+      type: hast.data.type
+    });
+  });
+
+  // convert full HAST to html
+  const html = toHTML({
+    type: 'root',
+    children: sectionsHAST
+  });
+
+  return {
+    html,
+    children: sectionsDetails
+  }
+}
+
 /**
  * The 'pre' function that is executed before the HTML is rendered
  * @param payload The current payload of processing pipeline
@@ -183,41 +215,16 @@ function pre(payload) {
     }
   }
 
-  // get the sections MDAST
-  const sections = getSmartDesign(payload.resource.mdast);
+  payload.resource.sections = sectionsPipeline(payload);
 
-  // get the sections MDAST
-  const sectionsHAST = computeSectionsHAST(sections);
-  
-  // create a "convienence object" that gives access to individual mdast, hast and html for each section.
-  const sectionsDetails = [];
-
-  sections.forEach(function (mdast, index) {
-    const hast = sectionsHAST[index];
-    sectionsDetails.push({
-      mdast: mdast,
-      hast: hast,
-      html: toHTML(hast)
-    });
-  });
-
-  const html = toHTML({
-    type: 'root',
-    children: sectionsHAST
-  });
-
-  payload.resource.sections = {
-    html,
-    children: sectionsDetails
-  };
-
-  // extension point
-  // need a different DOM for the hero section
-  if (sectionsHAST.length > 0 && sectionsHAST[0].data.type == 'hero') {
-    const hero = sectionsHAST[0];
+  // EXTENSION point demo
+  // -> I need a different DOM for the hero section
+  if (payload.resource.sections.children.length > 0 && payload.resource.sections.children[0].data.type == 'hero') {
+    const hero = payload.resource.sections.children[0].hast;
     const img = hastSelect('img', hero);
     const h = hastSelect('h2', hero);
 
+    // create object to be consumed in HTML to render custom HTML for hero section
     payload.resource.sections.hero = {
       sectionClass: hero.properties.className,
       img: toHTML(img),

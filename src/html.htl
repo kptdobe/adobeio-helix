@@ -57,7 +57,8 @@
 </nav>
 
 <main data-sly-list.section="${it.resource.sections.children}">
-    <sly data-sly-test="${sectionList.index==0}">
+    <sly data-sly-test="${section.type=='hero'}">
+        <!-- hero section -->
         <section class="${it.resource.sections.hero.sectionClass}">
             <div class="hero_wrapper">
                 <div class="hero_text">
@@ -67,7 +68,7 @@
             <div class="hero_img">${it.resource.sections.hero.img}</div>
         </section>
     </sly>
-    <sly data-sly-test="${sectionList.index>0}">${section.html}</sly>
+    <sly data-sly-test="${section.type!='hero'}">${section.html}</sly>
 </main>
 
 <footer class="footer">
