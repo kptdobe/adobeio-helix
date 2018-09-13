@@ -62,7 +62,7 @@
         <section class="${payload.content.sections.hero.sectionClass}">
             <div class="hero_wrapper">
                 <div class="hero_text">
-                    <div class="hero_title">${payload.content.sections.hero.h}</div>
+                    <div class="hero_title">${payload.content.sections.hero.p}</div>
                 </div>
             </div>
             <div class="hero_img">${payload.content.sections.hero.img}</div>

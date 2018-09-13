@@ -93,8 +93,8 @@ const LayoutMachine = {
   isHero(section) {
     // If the section has an h2 & an image in the first level, it's a hero
     const image = select(section, 'image');
-    const h = select(section, 'heading');
-    return (h.length == 1 && (h[0].depth == 1 || h[0].depth == 2) && image.length == 1);
+    const p = select(section, 'paragraph');
+    return (p.length == 1 && image.length == 1);
   },
 
   isGallery(section) {
@@ -104,7 +104,11 @@ const LayoutMachine = {
   },
 }
 
-function getSmartDesign(mdast) {
+function getSmartDesign(mdast, breakSection) {
+  breakSection = breakSection ? breakSection : function (node) {
+    return node.type == 'thematicBreak';
+  };
+
   mdast = mdastFlattenImages()(mdast);
   mdast = mdastFlattenLists()(mdast);
   mdast = mdastSqueezeParagraphs(mdast);
@@ -120,16 +124,20 @@ function getSmartDesign(mdast) {
   let title;
 
   mdastNodes.forEach(function (node) {
-    if (node.type == "heading" && node.depth == 1 && !title) {
+    if (node.type == 'heading' && node.depth == 1 && !title) {
       title = node.children[0].value;
       return;
     }
-    if (node.type == "thematicBreak") {
+    const br = breakSection(node);
+    if (br.break) {
       sections.push(LayoutMachine.layout(currentSection));
       currentSection = {
         children: [],
         type: 'standard'
       };
+      if (br.include) {
+        currentSection.children.push(node);
+      }
     } else {
       currentSection.children.push(node);
     }
@@ -163,9 +171,9 @@ function computeSectionsHAST(sections) {
   return nodes;
 }
 
-function sectionsPipeline(payload) {
+function sectionsPipeline(payload, breakSection) {
   // get the sections MDAST
-  const sectionsMdast = getSmartDesign(payload.content.mdast);
+  const sectionsMdast = getSmartDesign(payload.content.mdast, breakSection);
 
   // get the sections MDAST
   const sectionsHAST = computeSectionsHAST(sectionsMdast);
@@ -215,20 +223,28 @@ function pre(payload) {
     }
   }
 
-  payload.content.sections = sectionsPipeline(payload);
+  const determineBreaks = function(mdast) {
+    const isTB = mdast.type == 'thematicBreak'; // ---
+    const isH2 = mdast.type == 'heading' && mdast.depth == 2;
+    return {
+      break: isTB || isH2,
+      include: isH2
+    }
+  }
+  payload.content.sections = sectionsPipeline(payload, determineBreaks);
 
   // EXTENSION point demo
   // -> I need a different DOM for the hero section
   if (payload.content.sections.children.length > 0 && payload.content.sections.children[0].type == 'hero') {
     const hero = payload.content.sections.children[0].hast;
     const img = hastSelect('img', hero);
-    const h = hastSelect('h2', hero);
+    const p = hastSelect('p', hero);
 
     // create object to be consumed in HTML to render custom HTML for hero section
     payload.content.sections.hero = {
       sectionClass: hero.properties.className,
       img: toHTML(img),
-      h: toHTML(h)
+      p: toHTML(p)
     };
   }
 

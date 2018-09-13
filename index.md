@@ -1,8 +1,7 @@
 # Adobe I/O
 
+Adobe's products power the world's best digital experiences. Adobe developers bring them to life.
 ![Hero](https://www.adobe.io/content/dam/adobeio/Home/hero_main.jpg/_jcr_content/renditions/original.transform/w1680/q80/img.jpg)
-## Adobe's products power the world's best digital experiences. <br/>Adobe developers bring them to life.
-
 
 ---
 ![MAX](https://www.adobe.io/content/dam/adobeio/Home/banners/max_banner_graphic.png)
