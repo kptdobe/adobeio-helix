@@ -311,6 +311,7 @@ function pre(payload) {
 
   // EXTENSION point demo
   // -> I need a different DOM for the hero section
+  // could become something like sections.select('hero p').wrap('div', ['hero_wrapper', 'hero_text', 'hero_title']);
   sectionWrapper(payload.content.sections, 'hero', 'p', 'div', ['hero_wrapper', 'hero_text', 'hero_title']);
   sectionWrapper(payload.content.sections, 'hero', 'img', 'div', ['hero_img']);
   
