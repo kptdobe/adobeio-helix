@@ -25,6 +25,26 @@ footer nav a:active {
   color: #999;
 }
 
+main {
+  max-width: 1000px;
+  margin: auto;
+}
+
+section {
+  padding: 20px 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1, h2, h3 {
+  padding: 15px;
+}
+
+p {
+  padding: 0 15px;
+}
 
 /* smartdesign */
 .hero {
